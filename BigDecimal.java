@@ -14,15 +14,16 @@ class Solution {
         sc.close();
 
         // Write your code here
-        s = Arrays.copyOfRange(s, 0, s.length - 2);
-        List<String> input = Arrays.asList(s);
-        Arrays.sort(s, (s1, s2) -> {
-            int compare = new java.math.BigDecimal(s2).compareTo(new java.math.BigDecimal(s1));
-            if (compare == 0) {
-                return Integer.compare(input.indexOf(s1), input.indexOf(s2));
+        Comparator myComparator = new Comparator() {
+
+            @Override
+            public int compare(Object o1, Object o2) {
+                BigDecimal a = new BigDecimal(String.valueOf(o1));
+                BigDecimal b = new BigDecimal(String.valueOf(o2));
+                return b.compareTo(a);
             }
-            return compare;
-        });
+        };
+        Arrays.sort(s, 0, n, myComparator);
 
         // Output
         for (int i = 0; i < n; i++) {
